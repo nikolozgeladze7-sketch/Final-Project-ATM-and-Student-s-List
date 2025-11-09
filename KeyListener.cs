@@ -1,9 +1,25 @@
 ﻿internal class KeyListener
 {
+    /// <summary>
+    /// ხდება ბალანსის შემოწმების ოპერაციის შესრულებისას.
+    /// </summary>
+    /// <remarks>ეს მოვლენა აქტიურდება აბონენტებისთვის ბალანსის შემოწმების დასრულების შესახებ შეტყობინების გასაგზავნად.
+    /// აბონენტებს შეუძლიათ გამოიყენონ ეს მოვლენა ბალანსის შემოწმების საპასუხოდ მორგებული ლოგიკის შესასრულებლად.</remarks>
     public event Action OnBalanceCheck = null!;
     public event Action<decimal> OnWithdraw = null!;
     public event Action<decimal> OnAddMoney = null!;
 
+
+    /// <summary>
+    /// იწყებს მომხმარებლის შეყვანის მოსმენას და ამუშავებს ბრძანებებს თანხის განაღდებისთვის, თანხის დასამატებლად ან ბალანსის შესამოწმებლად.
+    /// მეთოდი ციკლურად მუშაობს Escape ღილაკზე დაჭერამდე. /// </summary>
+    /// <remarks>ეს მეთოდი კონკრეტული გასაღების შეყვანის მონაცემებს უსმენს: <list type="bullet"> <item> <description><see
+    /// cref="ConsoleKey.W"/>: მომხმარებელს თანხის შეყვანის მოთხოვნა და <see cref="OnWithdraw"/> მოვლენას იწვევს.</description>
+    /// </item> <item> <description><see cref="ConsoleKey.A"/>: მომხმარებელს თანხის შეყვანის მოთხოვნა და
+    /// <see cref="OnAddMoney"/> მოვლენას იწვევს.</description> </item> <item> <description><see
+    /// cref="ConsoleKey.B"/>: <see cref="OnBalanceCheck"/> მოვლენას იწვევს.</description> </item> <item>
+    /// <description>ნებისმიერი სხვა გასაღები: აჩვენებს შეცდომის შეტყობინებას, რომელიც მიუთითებს არასწორ გასაღებზე.</description> </item> </list>
+    /// მეთოდი მთავრდება Escape ღილაკზე (<see cref="ConsoleKey.Escape"/>) დაჭერისას.</remarks>
     public void StartListening()
     {
         decimal amount;
@@ -39,6 +55,12 @@
         }
     }
 
+
+    /// <summary>
+    /// მომხმარებლისთვის პარამეტრების მენიუს აჩვენებს და კონსოლიდან კლავიშზე დაჭერის შესახებ ინფორმაციას კითხულობს.
+    /// </summary>
+    /// <remarks>მეთოდი მომხმარებელს წინასწარ განსაზღვრული პარამეტრების ნაკრებით აწვდის ინფორმაციას და კლავიშზე დაჭერას ელოდება. კლავიშზე დაჭერა/დაჭერა კონსოლზე ღილაკის ჩვენების გარეშე ფიქსირდება.</remarks>
+    /// <returns><see cref="ConsoleKeyInfo"/> ობიექტი, რომელიც მომხმარებლის მიერ დაჭერილ კლავიშს წარმოადგენს.</returns>
     private static ConsoleKeyInfo InsertKey()
     {
         Console.WriteLine("Enter A - to add money;");

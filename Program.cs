@@ -1,10 +1,25 @@
-﻿BankingSystem bankingSystem = new BankingSystem();
+﻿using Final_Project;
+
+BankingSystem bankingSystem = new BankingSystem();
 KeyListener keyListener = new KeyListener();
+UserAccountStorage storage = new UserAccountStorage("balance.txt");
+
+/// მოვლენების მეთოდებთან დაკავშირება
 
 keyListener.OnBalanceCheck += bankingSystem.ShowBalance;
-keyListener.OnWithdraw += bankingSystem.WithdrawMoney;
-keyListener.OnAddMoney += bankingSystem.AddMoney;
+keyListener.OnWithdraw += amount =>
+{
+    bankingSystem.WithdrawMoney(amount);
+    storage.SaveBalance(bankingSystem.GetBalance());
+};
+keyListener.OnAddMoney += amount =>
+{
+    bankingSystem.AddMoney(amount);
+    storage.SaveBalance(bankingSystem.GetBalance());
+};
 
+
+/// მომხმარებლის შეყვანის მოსმენა და პროცესის დაწყება
 keyListener.StartListening();
 
 
