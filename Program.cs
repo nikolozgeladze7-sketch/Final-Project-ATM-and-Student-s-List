@@ -18,6 +18,16 @@ keyListener.OnAddMoney += amount =>
     storage.SaveBalance(bankingSystem.GetBalance());
 };
 
+Console.WriteLine("Type 1 for Sing up and 2 For Login");
+var choice = Console.ReadLine();
+
+if (choice == "1")
+{
+    storage.Signup();
+}
+else if (choice == "2")
+{
+}
 
 /// მომხმარებლის შეყვანის მოსმენა და პროცესის დაწყება
 keyListener.StartListening();
@@ -40,3 +50,4 @@ keyListener.StartListening();
 //studentManager.OnSearchStudent += student.Search;
 
 //studentManager.StartStudentList();
+
