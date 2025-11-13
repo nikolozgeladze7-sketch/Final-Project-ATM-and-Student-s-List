@@ -1,14 +1,19 @@
-﻿namespace Final_Project
+
+using System;
+using System.IO;
+
+
+namespace Final_Project
 {
     public class UserAccountStorage
     {
-        private readonly string _filePath;
+        public readonly string _filePath;
 
         public UserAccountStorage(string filePath)
         {
             _filePath = filePath;
         }
-
+       
         /// <summary>
         /// სთავაზობს შენახვას ბალანსის მნიშვნელობის ფაილში.
         /// </summary>
@@ -74,7 +79,7 @@
         //<sumamry>
         //ეს ამოწმებს თუ გამოყენებულია სახელი
         //<sumamry>
-        private bool UserExists(string username)
+        public bool UserExists(string username)
         {
             if (!File.Exists(_filePath))
                 return false;
@@ -88,6 +93,60 @@
             }
             return false;
         }
+
+        public void Login()
+        {
+            UserAccountStorage storage = new UserAccountStorage("users.txt");
+            bool loggedIn = false;
+
+            while (!loggedIn) // sul kitxavs sanam sworad chawers logins
+            {
+                Console.WriteLine("Enter username:");
+                var username = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(username))
+                {
+                    Console.WriteLine("Username can't be empty.");
+                    continue; // loopis dasawyishi midis
+                }
+
+                if (!storage.UserExists(username))
+                {
+                    Console.WriteLine("User does not exist. Please sign up first.");
+                    continue; //  loopis dasawyishi midis
+                }
+
+                Console.WriteLine("Enter password:");
+                var password = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    Console.WriteLine("Password can't be empty.");
+                    continue; //  loopis dasawyishi midis
+                }
+
+                // amowmebs parols da users
+                string[] lines = File.ReadAllLines("users.txt");
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(':');
+                    if (parts.Length >= 2 && parts[0] == username && parts[1] == password)
+                    {
+                        Console.WriteLine("Login successful!");
+                        loggedIn = true;  // amtavrebs loops
+                        break;
+                    }
+                }
+
+                if (!loggedIn)
+                {
+                    Console.WriteLine(" Incorrect username or password. Try again.");
+                }
+            }
+        }
+
+
     }
 }
+
 
