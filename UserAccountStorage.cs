@@ -46,5 +46,48 @@
                 return 0;
             }
         }
+        public void Signup()
+        {
+            Console.WriteLine("Enter username");
+            var username = Console.ReadLine();
+            if (username == null)
+            {
+                throw new ArgumentOutOfRangeException("username cant be nothing");
+            }
+            if (UserExists(username))
+            {
+                Console.WriteLine("Username already exists.");
+                return;
+            }
+            Console.WriteLine("Enter a Password");
+            var password = Console.ReadLine();
+            //<sumamry>
+            //მოწოდებულ ინფორმაციას ერთ ცვლადში ამატებს და საწყის მაყუთად 0-ს მიანიჭებს
+            //<sumamry>
+            string newUser = $"{username}:{password}:0";
+            //<summary>
+            //ეს ახალ Users ამატებს მეხსიერებაში
+            //<summary>
+            File.AppendAllText(_filePath, newUser + Environment.NewLine);
+        }
+        
+        //<sumamry>
+        //ეს ამოწმებს თუ გამოყენებულია სახელი
+        //<sumamry>
+        private bool UserExists(string username)
+        {
+            if (!File.Exists(_filePath))
+                return false;
+        
+            string[] lines = File.ReadAllLines(_filePath);
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split(':');
+                if (parts.Length > 0 && parts[0] == username)
+                    return true;
+            }
+            return false;
+        }
     }
 }
+
