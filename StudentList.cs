@@ -1,20 +1,23 @@
 namespace StudentsList
 {
     /// <summary>
-    /// წარმოადგენს ინდივიდს სახელით.
+    /// წარმოადგენს სტუდენტს, რომელსაც აქვს ნომრისა და შეფასების ნიშანი, რომელიც მემკვიდრეობით მიიღება <see cref="Person"/> კლასიდან.
     /// </summary>
-    public class Person
+    public class Student : Person
     {
-        public string Name { get; set; }
+        public int RollNumber { get; set; }
+        public char Grade { get; set; }
 
-        public Person(string name)
+        public Student(string name, int rollNumber, char grade)
+            : base(name)
         {
-            Name = name;
+            RollNumber = rollNumber;
+            Grade = grade;
         }
 
-        public virtual void DisplayInfo()
+        public override void DisplayInfo()
         {
-            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Name: {Name}, Roll Number: {RollNumber}, Grade: {Grade}");
         }
     }
 }
