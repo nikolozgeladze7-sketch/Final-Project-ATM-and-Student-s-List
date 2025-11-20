@@ -3,7 +3,7 @@
 BankingSystem bankingSystem = new BankingSystem();
 KeyListener keyListener = new KeyListener();
 UserAccountStorage storage = new UserAccountStorage("balance.txt");
-
+Register storage2 = new Register("users.txt");
 /// მოვლენების მეთოდებთან დაკავშირება
 
 keyListener.OnBalanceCheck += bankingSystem.ShowBalance;
@@ -23,7 +23,7 @@ var choice = Console.ReadLine();
 
 if (choice == "1")
 {
-    storage.Signup();
+    storage2.Signup();
 }
 else if (choice == "2")
 {
@@ -50,4 +50,5 @@ keyListener.StartListening();
 //studentManager.OnSearchStudent += student.Search;
 
 //studentManager.StartStudentList();
+
 
