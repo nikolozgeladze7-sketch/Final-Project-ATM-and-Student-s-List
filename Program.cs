@@ -18,7 +18,7 @@ keyListener.OnAddMoney += amount =>
     storage.SaveBalance(bankingSystem.GetBalance());
 };
 
-Console.WriteLine("Type 1 for Sing up and 2 For Login");
+Console.WriteLine("Type 1 for Sign up and 2 for Login");
 var choice = Console.ReadLine();
 
 if (choice == "1")
@@ -27,7 +27,20 @@ if (choice == "1")
 }
 else if (choice == "2")
 {
+    bool loggedIn = storage2.Login();
+
+    if (!loggedIn)
+        return; // აჩერებს პროგრამას თუ რამე არასწორად მოხდება
 }
+else
+{
+    Console.WriteLine("invalid option");
+    return;
+}
+
+Console.Clear();
+Console.WriteLine("Login successful. Banking system started!");
+
 
 /// მომხმარებლის შეყვანის მოსმენა და პროცესის დაწყება
 keyListener.StartListening();
@@ -50,5 +63,6 @@ keyListener.StartListening();
 //studentManager.OnSearchStudent += student.Search;
 
 //studentManager.StartStudentList();
+
 
 
