@@ -67,3 +67,24 @@ namespace Final_Project
         }
     }
 }
+public bool Login()
+{
+    Console.WriteLine("Enter username");
+    var username = Console.ReadLine();
+
+    Console.WriteLine("Enter password");
+    var password = Console.ReadLine();
+
+    List<User> users = LoadUsers();
+
+    var user = users.FirstOrDefault(u => u.Username == username && u.Password == password);
+
+    if (user == null)
+    {
+        Console.WriteLine("Invalid username or password!");
+        return false;
+    }
+
+    Console.WriteLine($"Welcome, {username}!");
+    return true;
+}
